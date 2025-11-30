@@ -5,7 +5,7 @@ import { CookieJar } from 'tough-cookie';
 import qs from 'qs';
 
 // Internal Imports
-import { IUser } from '../../../interfaces';
+import { IUser } from './interfaces';
 import { MADAKTO_CONSTANTS } from './Madakto.constant';
 import { MdbService } from '../mdb/mdb.service';
 
