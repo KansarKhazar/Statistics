@@ -4,6 +4,7 @@ import { ScavengerController } from './scavenger.controller';
 
 @Module({
   providers: [ScavengerService],
-  controllers: [ScavengerController]
+  controllers: [ScavengerController],
+  imports: [],
 })
 export class ScavengerModule {}
