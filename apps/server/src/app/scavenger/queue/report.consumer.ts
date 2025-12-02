@@ -3,10 +3,9 @@ import { Job } from 'bullmq';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 
-import { WorkingReports } from '../../../models/WorkingReports';
+import { Users, WorkingReports } from '../../../models';
 import { MadaktoService } from '../../SharedModule/Madakto/Madakto.service';
 import { TReportJobData } from './report-job-data.type';
-import { Users } from '../../../models/Users';
 import { MdbReportToSchemaHelper } from '../../../helpers';
 import { QUEUE } from '../../../enums';
 

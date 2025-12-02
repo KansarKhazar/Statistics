@@ -1,5 +1,5 @@
 import { IMdbResponse } from '../app/SharedModule/mdb/mdb.ro';
-import { WorkingReports } from '../models/WorkingReports';
+import { WorkingReports } from '../models';
 import { normalizeTime } from './normalize-time.helper';
 
 export type TMdbReportToSchema = Omit<

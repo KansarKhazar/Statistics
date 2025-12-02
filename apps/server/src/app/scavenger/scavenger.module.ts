@@ -7,8 +7,7 @@ import { BullMQAdapter } from '@bull-board/api/bullMQAdapter';
 import { ScavengerService } from './scavenger.service';
 import { ScavengerController } from './scavenger.controller';
 import { ReportConsumer } from './queue/report.consumer';
-import { Users } from '../../models/Users';
-import { WorkingReports } from '../../models/WorkingReports';
+import { Users, WorkingReports } from '../../models';
 import { QUEUE } from '../../enums';
 
 @Module({

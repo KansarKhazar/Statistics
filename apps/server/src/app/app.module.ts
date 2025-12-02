@@ -1,16 +1,15 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { BullModule } from '@nestjs/bullmq';
+import { BullBoardModule } from '@bull-board/nestjs';
+import { ExpressAdapter } from '@bull-board/express';
 
 // Internal Imports
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ScavengerModule } from './Scavenger/scavenger.module';
 import { SharedModule } from './SharedModule/shared.module';
-import { BullModule } from '@nestjs/bullmq';
-import { BullBoardModule } from '@bull-board/nestjs';
-import { ExpressAdapter } from '@bull-board/express';
-import { Users } from '../models/Users';
-import { WorkingReports } from '../models/WorkingReports';
+import { Users, WorkingReports } from '../models';
 
 @Module({
   imports: [

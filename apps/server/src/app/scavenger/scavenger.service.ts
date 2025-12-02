@@ -7,7 +7,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 
 // Internal Imports
 import { MadaktoService } from '../SharedModule/Madakto/Madakto.service';
-import { Users } from '../../models/Users';
+import { Users } from '../../models';
 import { QUEUE } from '../../enums';
 
 @Injectable()
