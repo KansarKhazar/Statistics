@@ -31,14 +31,14 @@ export class MdbService {
         `Provider=Microsoft.Jet.OLEDB.4.0;Data Source=${tempFilePath};`
       );
 
-      const record = await this.connection.query<IMdbResponse>(
+      const record = await this.connection.query<IMdbResponse[]>(
         'SELECT * FROM ReportAll'
       );
 
       // Clean up temporary file
       await this.cleanupTempFile(tempFilePath);
 
-      return record;
+      return record[0];
     } catch (e: any) {
       throw new Error(`Failed to read MDB file: ${e.message}`);
     }
