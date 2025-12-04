@@ -4,11 +4,11 @@ import { Repository } from 'typeorm';
 import { InjectQueue } from '@nestjs/bullmq';
 import { Queue } from 'bullmq';
 import { InjectRepository } from '@nestjs/typeorm';
+import { QUEUE } from '@kansar/common';
 
 // Internal Imports
 import { MadaktoService } from '../SharedModule/Madakto/Madakto.service';
 import { Users } from '../../models';
-import { QUEUE } from '../../enums';
 
 @Injectable()
 export class ScavengerService {

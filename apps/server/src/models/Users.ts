@@ -8,10 +8,11 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 import { WorkingReports } from './WorkingReports';
+import { IUsersModel } from '@kansar/common';
 
 @Index('PK_users', ['id'], { unique: true })
 @Entity('users', { schema: 'dbo' })
-export class Users {
+export class Users implements IUsersModel {
   @PrimaryGeneratedColumn({ type: 'int', name: 'id' })
   id!: number;
 

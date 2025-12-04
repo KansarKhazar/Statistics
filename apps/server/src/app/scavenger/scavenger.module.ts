@@ -3,12 +3,12 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { BullModule } from '@nestjs/bullmq';
 import { BullBoardModule } from '@bull-board/nestjs';
 import { BullMQAdapter } from '@bull-board/api/bullMQAdapter';
+import { QUEUE } from '@kansar/common';
 
 import { ScavengerService } from './scavenger.service';
 import { ScavengerController } from './scavenger.controller';
 import { ReportConsumer } from './queue/report.consumer';
 import { Users, WorkingReports } from '../../models';
-import { QUEUE } from '../../enums';
 
 @Module({
   providers: [ScavengerService, ReportConsumer],

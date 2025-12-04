@@ -3,9 +3,9 @@ import axios, { AxiosInstance } from 'axios';
 import { wrapper } from 'axios-cookiejar-support';
 import { CookieJar } from 'tough-cookie';
 import qs from 'qs';
+import { IUser } from '@kansar/common';
 
 // Internal Imports
-import { IUser } from './interfaces';
 import { MADAKTO_CONSTANTS } from './Madakto.constant';
 import { MdbService } from '../mdb/mdb.service';
 

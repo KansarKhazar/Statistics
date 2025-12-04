@@ -2,12 +2,12 @@ import { Processor, WorkerHost } from '@nestjs/bullmq';
 import { Job } from 'bullmq';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
+import { QUEUE } from '@kansar/common';
 
 import { Users, WorkingReports } from '../../../models';
 import { MadaktoService } from '../../SharedModule/Madakto/Madakto.service';
 import { TReportJobData } from './report-job-data.type';
 import { MdbReportToSchemaHelper } from '../../../helpers';
-import { QUEUE } from '../../../enums';
 
 @Processor(QUEUE.REPORT, { concurrency: 1 })
 export class ReportConsumer extends WorkerHost {
