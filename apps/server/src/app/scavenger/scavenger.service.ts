@@ -19,7 +19,7 @@ export class ScavengerService {
     @InjectQueue(QUEUE.REPORT) private queue: Queue
   ) {}
 
-  async getData() {
+  async getData(fromDate = '', toDate = '') {
     await this.madaktoService.login();
 
     const users = await this.madaktoService.getAllUsers();
@@ -59,8 +59,12 @@ export class ScavengerService {
         .execute();
     }
 
-    const startOfMonth = Jalali.now().startOf('month').format('YYYY/MM/DD');
-    const now = Jalali.now().format('YYYY/MM/DD');
+    const startOfMonth =
+      fromDate != ''
+        ? fromDate
+        : Jalali.now().startOf('month').format('YYYY/MM/DD');
+
+    const now = toDate != '' ? toDate : Jalali.now().format('YYYY/MM/DD');
 
     for (const user of users) {
       // This will check if user is not active in MADAKTO
