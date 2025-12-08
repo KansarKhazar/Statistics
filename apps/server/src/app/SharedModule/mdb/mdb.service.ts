@@ -4,7 +4,8 @@ import * as fs from 'fs/promises';
 import { constants } from 'fs';
 import * as os from 'os';
 import * as path from 'path';
-import ADODB from 'node-adodb';
+// eslint-disable-next-line @nx/enforce-module-boundaries
+import MDBReader from 'mdb-reader';
 
 // Internal Imports
 import { MDB_CONSTANTS } from './mdb.constant';
@@ -13,32 +14,34 @@ import { IMdbResponse } from './mdb.ro';
 @Global()
 @Injectable()
 export class MdbService {
-  private connection: ADODB.open | null = null;
-
   async readMdbFromUrl(
     axios: AxiosInstance,
     fileName: string
   ): Promise<IMdbResponse> {
     try {
-      // Download the file to temporary location
+      // 1. Download file to temp
       const tempFilePath = await this.downloadFileToTemp(
         axios,
         `${MDB_CONSTANTS.READ_REQUEST_URL}${fileName}`
       );
 
-      // Connect to the MDB file
-      this.connection = ADODB.open(
-        `Provider=Microsoft.Jet.OLEDB.4.0;Data Source=${tempFilePath};`
-      );
+      // 2. Load MDB file using mdb-reader
+      const fileBuffer = await fs.readFile(tempFilePath);
+      const reader = new MDBReader(fileBuffer);
 
-      const record = await this.connection.query<IMdbResponse[]>(
-        'SELECT * FROM ReportAll'
-      );
+      // 3. Get table
+      const table = reader.getTable('ReportAll');
+      if (!table) {
+        throw new Error(`Table "ReportAll" not found in MDB file`);
+      }
 
-      // Clean up temporary file
+      const rows = table.getData() as unknown as IMdbResponse[];
+
+      // 4. Clean up
       await this.cleanupTempFile(tempFilePath);
 
-      return record[0];
+      // 5. Return first row (same as original behavior)
+      return rows[0];
     } catch (e: any) {
       throw new Error(`Failed to read MDB file: ${e.message}`);
     }
