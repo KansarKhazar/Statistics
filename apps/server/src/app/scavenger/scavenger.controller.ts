@@ -1,4 +1,4 @@
-import { Body, Controller, Get } from '@nestjs/common';
+import { Body, Controller, Post } from '@nestjs/common';
 
 import { ScavengerService } from './scavenger.service';
 import { CalcPeopleDto } from './dto';
@@ -7,7 +7,7 @@ import { CalcPeopleDto } from './dto';
 export class ScavengerController {
   constructor(private readonly scavengerService: ScavengerService) {}
 
-  @Get('CalcPeople')
+  @Post('CalcPeople')
   getData(@Body() dto: CalcPeopleDto) {
     return this.scavengerService.getData(dto.fromDate, dto.toDate);
   }

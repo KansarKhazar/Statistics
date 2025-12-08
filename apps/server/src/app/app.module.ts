@@ -10,16 +10,17 @@ import { AppService } from './app.service';
 import { ScavengerModule } from './Scavenger/scavenger.module';
 import { SharedModule } from './SharedModule/shared.module';
 import { Users, WorkingReports } from '../models';
+import { env } from '../environment';
 
 @Module({
   imports: [
     TypeOrmModule.forRoot({
-      type: 'mssql',
-      host: 'localhost',
-      port: 1433,
-      username: 'sa',
-      password: 'root',
-      database: 'warehouse',
+      type: env.DB_TYPE,
+      host: env.DB_HOST,
+      port: env.DB_PORT,
+      username: env.DB_USERNAME,
+      password: env.DB_PASSWORD,
+      database: env.DB_DATABASE,
       entities: [Users, WorkingReports],
       synchronize: false,
       options: {
@@ -28,12 +29,12 @@ import { Users, WorkingReports } from '../models';
     }),
     BullModule.forRoot({
       connection: {
-        host: 'localhost',
-        port: 6379,
+        host: env.REDIS_HOST,
+        port: env.REDIS_PORT,
       },
     }),
     BullBoardModule.forRoot({
-      route: '/queueDashboard',
+      route: env.QUEUE_DASHBOARD_ROUTE,
       adapter: ExpressAdapter,
     }),
     ScavengerModule,

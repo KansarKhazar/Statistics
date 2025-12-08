@@ -1,3 +1,3 @@
-import { IUser } from '../../../../../../libs/common/src/lib/interfaces';
+import { IUser } from '@kansar/common';
 
 export type TReportJobData = { user: IUser; startOfMonth: string; now: string };
