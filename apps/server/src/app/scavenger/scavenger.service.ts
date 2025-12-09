@@ -1,10 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import { Jalali } from 'jalali-ts';
-import { ObjectLiteral, Repository } from 'typeorm';
+import { Repository } from 'typeorm';
 import { InjectQueue } from '@nestjs/bullmq';
 import { Queue } from 'bullmq';
 import { InjectRepository } from '@nestjs/typeorm';
-import { QUEUE } from '@kansar/common';
+import { IUser, QUEUE } from '@kansar/common';
 
 // Internal Imports
 import { MadaktoService } from '../SharedModule/Madakto/Madakto.service';
@@ -25,29 +25,7 @@ export class ScavengerService {
 
     const users = await this.madaktoService.getAllUsers();
 
-    const entities: Users[] = [];
-    for (const user of users) {
-      // This will check if user is not active in MADAKTO
-      // When User has been deactivated by Admins it means the user left the company
-      if (user.PersonActive !== 1) continue;
-
-      entities.push(
-        this.usersRep.create({
-          employeeId: user.EmployeeId,
-          rfid: user.RFID,
-          personName: user.PersonName,
-          personFamily: user.PersonFamily,
-          personFullName: user.PersonFullName,
-          organizationName: user.OrganizationName,
-          organizationUnitName: user.OrganizationUnitName,
-          organizationalPostCaption: user.OrganizationalPostCaption,
-          createdAt: new Date(),
-          updatedAt: new Date(),
-        })
-      );
-    }
-
-    await chunkInsertOrIgnore(this.usersRep, entities);
+    await this.getUsersAndInsertNewUsers(users);
 
     const startOfMonth =
       fromDate != ''
@@ -78,5 +56,31 @@ export class ScavengerService {
     }
 
     return true;
+  }
+
+  private async getUsersAndInsertNewUsers(users: IUser[]) {
+    const entities: Users[] = [];
+    for (const user of users) {
+      // This will check if user is not active in MADAKTO
+      // When User has been deactivated by Admins it means the user left the company
+      if (user.PersonActive !== 1) continue;
+
+      entities.push(
+        this.usersRep.create({
+          employeeId: user.EmployeeId,
+          rfid: user.RFID,
+          personName: user.PersonName,
+          personFamily: user.PersonFamily,
+          personFullName: user.PersonFullName,
+          organizationName: user.OrganizationName,
+          organizationUnitName: user.OrganizationUnitName,
+          organizationalPostCaption: user.OrganizationalPostCaption,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        })
+      );
+    }
+
+    await chunkInsertOrIgnore(this.usersRep, entities);
   }
 }
