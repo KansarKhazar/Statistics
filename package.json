@@ -4,7 +4,7 @@
   "license": "MIT",
   "scripts": {
     "server:dev": "npx nx run @statistics/server:serve",
-    "server:generate:entites": "typeorm-model-generator --convertCaseEntity none --convertCaseFile none --convertCaseProperty none -h localhost -d warehouse -u sa -x root -p 1433 -e mssql -o ./apps/server/src/models --noConfig --noPluralization"
+    "server:generate:entites": "typeorm-model-generator --convertCaseEntity none --convertCaseFile none --convertCaseProperty none -h localhost -d warehouse -u sa -x root -p 1433 -e mssql -o ./apps/server/src/gen --noConfig --noPluralization"
   },
   "private": true,
   "dependencies": {
