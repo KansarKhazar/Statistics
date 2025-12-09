@@ -40,7 +40,7 @@ export class ReportConsumer extends WorkerHost {
       await this.workingReportsRep.update(
         { AttendanceCardNo: user.EmployeeId, fromDate: startOfMonth },
         {
-          ...MdbReportToSchemaHelper(report),
+          ...MdbReportToSchemaHelper(report[0]),
           toDate: now,
           PersonFullName: user.PersonFullName,
         }
@@ -62,7 +62,7 @@ export class ReportConsumer extends WorkerHost {
 
       // Insert new Report record to Database
       const workingReport = this.workingReportsRep.create({
-        ...MdbReportToSchemaHelper(report),
+        ...MdbReportToSchemaHelper(report[0]),
         userId: dbUser.id,
         fromDate: startOfMonth,
         toDate: now,
@@ -76,7 +76,7 @@ export class ReportConsumer extends WorkerHost {
     return {
       result: 'done',
       report: {
-        ...MdbReportToSchemaHelper(report),
+        ...MdbReportToSchemaHelper(report[0]),
         EmployeeId: user.EmployeeId,
         fromDate: startOfMonth,
         toDate: now,
