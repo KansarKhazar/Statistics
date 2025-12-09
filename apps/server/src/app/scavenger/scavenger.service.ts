@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { Jalali } from 'jalali-ts';
-import { Repository } from 'typeorm';
+import { ObjectLiteral, Repository } from 'typeorm';
 import { InjectQueue } from '@nestjs/bullmq';
 import { Queue } from 'bullmq';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -9,6 +9,7 @@ import { QUEUE } from '@kansar/common';
 // Internal Imports
 import { MadaktoService } from '../SharedModule/Madakto/Madakto.service';
 import { Users } from '../../models';
+import { chunkInsertOrIgnore } from '../../helpers';
 
 @Injectable()
 export class ScavengerService {
@@ -46,18 +47,7 @@ export class ScavengerService {
       );
     }
 
-    const safeChunkSize = 100;
-
-    for (let i = 0; i < entities.length; i += safeChunkSize) {
-      const part = entities.slice(i, i + safeChunkSize);
-
-      await this.usersRep
-        .createQueryBuilder()
-        .insert()
-        .values(part)
-        .orIgnore()
-        .execute();
-    }
+    await chunkInsertOrIgnore(this.usersRep, entities);
 
     const startOfMonth =
       fromDate != ''
