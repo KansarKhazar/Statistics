@@ -9,6 +9,7 @@ import {
 } from 'typeorm';
 import { WorkingReports } from './WorkingReports';
 import { IUsersModel } from '@kansar/common';
+import { DailyReport } from './DailyReport';
 
 @Index('PK_users', ['id'], { unique: true })
 @Entity('users', { schema: 'dbo' })
@@ -60,6 +61,9 @@ export class Users implements IUsersModel {
     onUpdate: 'CURRENT_TIMESTAMP',
   })
   updatedAt: Date;
+
+  @OneToMany(() => DailyReport, (dailyReport) => dailyReport.user)
+  dailyReports: DailyReport[];
 
   @OneToMany(() => WorkingReports, (workingReports) => workingReports.user)
   workingReports: WorkingReports[];
