@@ -1,6 +1,7 @@
 import { env } from '../../../environment';
 
 export const MADAKTO_CONSTANTS = {
+  // Constants for Login Request
   LOGIN_REQUEST_URL: 'https://10.139.1.46/Madakto/Login',
   LOGIN_REQUEST_DTO: {
     __VIEWSTATE:
@@ -13,6 +14,8 @@ export const MADAKTO_CONSTANTS = {
     __EVENTVALIDATION:
       '/wEdAAXaKMI2zr1qF6kDy+oyxANquaZaNTD5QwewdJqajpmO1IiVidHTGamuEinfWG21MPl447MIsoZvoOiqHcKGwv3zsEuMZ1vGSFQdOl+6KbBw5DuqpSYb9bjm7bfdoSrkJ8bWO4jVRB4e1t404lsmcHeP',
   },
+
+  // Constants for Users List Fetching
   USERS_REQUEST_URL:
     'https://10.139.1.46/Madakto/Facade/Personnel/EmployeesService.asmx/getEmployeesWithSearchService',
   USERS_REQUEST_DTO: {
@@ -35,6 +38,8 @@ export const MADAKTO_CONSTANTS = {
     EmployeesSrl: '',
     PersonActive: 0,
   },
+
+  // Constants for Full Report for User
   REPORT_REQUEST_URL:
     'https://10.139.1.46/Madakto/Facade/Reports/Attendance/ReportAllOptionService.asmx/GetAccessReportFileService',
   REPORT_REQUEST_DTO: {
@@ -62,5 +67,34 @@ export const MADAKTO_CONSTANTS = {
     NotCalculateEmploymentTypeCodes: '',
     SelectedDevicesSrlList: '',
     SelectedDatesList: '',
+  },
+
+  // Constants for Daily Report for User
+  REPORT_DAILY_REQUEST_URL:
+    'https://10.139.1.46/Madakto/Facade/Reports/Attendance/ReportOptionService.asmx/GetAccessReportFileService',
+  REPORT_DAILY_REQUEST_DTO: {
+    CustomizationField1: '',
+    CustomizationField2: '',
+    CustomizationField3: '',
+    CustomizationField4: '',
+    DefaultValue: 0,
+    EmployeeName: '',
+    EmployeesSrl: '',
+    EmploymentType: '0',
+    FormulaExpression: '',
+    Options:
+      '1,1,0,0,1,1,0,0,0,0,0,0,1,1,0,0,1,1,0,0,1,0,1,1,1,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,1,1,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0',
+    OrderByField: '0',
+    OrganizationName: '',
+    OrganizationSrl: '-1',
+    OrganizationUnitName: '',
+    OrganizationUnitsSrl: '',
+    SelectedDatesList: '',
+    SelectedDevicesSrlList: '',
+    SelectedEmployeesSrlList: '',
+    SelectedOrganizationUnitsSrls: '',
+    TextOrExcel: false,
+    TitleOrder:
+      'روزÅ1ÅتاریخÅ2Åورود1Å3Åخروج1Å4Åورود2Å5Åخروج2Å6Åورود3Å7Åخروج3Å8Åورود4Å9Åخروج4Å10Åورود5Å11Åخروج5Å12Åورود6Å13Åخروج6Å14Åمرخصی استحقاقی ساعتیÅ15Åمرخصی استحقاقی روزانهÅ16Åمرخصی استعلاجی ساعتیÅ17Åمرخصی استعلاجی روزانهÅ18Åمرخصی حادثه ساعتیÅ19Åمرخصی حادثه روزانهÅ20Åمرخصی سازمانی ساعتیÅ21Åمرخصی سازمانی روزانهÅ22Åمرخصی بدون حقوق ساعتیÅ23Åمرخصی بدون حقوق روزانهÅ24Åماموریت باحقوق ساعتیÅ25Åماموریت باحقوق روزانهÅ26Åماموریت بدون حقوق ساعتیÅ27Åماموریت بدون حقوق روزانهÅ28Åکل ماموریت ساعتیÅ29Åکل ماموریت روزانهÅ30Åغیبت ساعتیÅ31Åغیبت مجاز روزانهÅ32Åماه رمضانÅ33Åفیلد شخصی سازی1Å34Åفیلد شخصی سازی2Å35Åفیلد شخصی سازی3Å36Åفیلد شخصی سازی4Å37Åنوبت کاریÅ38Åاضافه کار مجاز قبل وقتÅ39Åاضافه کار مجاز بعد وقتÅ40Åاضافه کار غیرمجاز قبل وقتÅ41Åاضافه کار غیرمجاز بعد وقتÅ42Åاضافه کار ثابتÅ43Åکل اضافه کار قبل وقتÅ44Åکل اضافه کار بعد وقتÅ45Åکل اضافه کار مجازÅ46Åکل اضافه کار غیرمجازÅ47Åاضافه کار تعطیل مجازÅ48Åاضافه کار تعطیل غیرمجازÅ49Åکل اضافه کار تعطیلÅ50Åکل اضافه کارÅ51Åحضور در شیفتÅ52Åکل حضور مجازÅ53Åکل حضورÅ54Åتاخیر مجاز اول وقتÅ55Åتاخیر غیرمجاز اول وقتÅ56Åکل تاخیر اول وقتÅ57Åتعجیل مجاز آخر وقتÅ58Åتعجیل غیرمجاز آخر وقتÅ59Åکل تعجیل آخر وقتÅ60Åکسر کارÅ61ÅشیفتÅ62Åگروه کاریÅ63Åخلاصه کلÅ64Åکارکرد موظفیÅ65Åغیبت غیر مجاز روزانهÅ66Åکارکرد روزانهÅ67Åشب کاریÅ68ÅتوضیحاتÅ69Åمانده مرخصی(به روز)Å70Åمانده مرخصی(تا ساعت)Å71Å',
   },
 };

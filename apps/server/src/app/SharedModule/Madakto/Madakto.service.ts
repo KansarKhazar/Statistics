@@ -110,4 +110,31 @@ export class MadaktoService {
 
     return await this.mdbService.readMdbFromUrl(this.client, response.data.d);
   }
+
+  async getDailyReportForUser(
+    FromId: string,
+    ToId: string,
+    FromDate: string,
+    ToDate: string
+  ) {
+    const getUserDailyReportData = JSON.stringify({
+      ...MADAKTO_CONSTANTS.REPORT_DAILY_REQUEST_DTO,
+      FromId,
+      ToId,
+      FromDate,
+      ToDate,
+    });
+
+    const response = await this.client.post(
+      MADAKTO_CONSTANTS.REPORT_DAILY_REQUEST_URL,
+      getUserDailyReportData,
+      {
+        maxBodyLength: Infinity,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      }
+    );
+    return await this.mdbService.readMdbFromUrl(this.client, response.data.d);
+  }
 }
