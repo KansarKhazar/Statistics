@@ -17,7 +17,7 @@ export class MdbService {
   async readMdbFromUrl(
     axios: AxiosInstance,
     fileName: string
-  ): Promise<IMdbResponse> {
+  ): Promise<IMdbResponse[]> {
     try {
       // 1. Download file to temp
       const tempFilePath = await this.downloadFileToTemp(
@@ -41,7 +41,7 @@ export class MdbService {
       await this.cleanupTempFile(tempFilePath);
 
       // 5. Return first row (same as original behavior)
-      return rows[0];
+      return rows;
     } catch (e: any) {
       throw new Error(`Failed to read MDB file: ${e.message}`);
     }
