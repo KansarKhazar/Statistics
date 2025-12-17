@@ -12,8 +12,10 @@ import { IWorkingReportsModel } from '@kansar/common';
 
 import { Users } from './Users';
 
+@Index('IX_workingReports_userId_fromDate', ['userId', 'fromDate'], {
+  unique: true,
+})
 @Index('PK_workingReports', ['id'], { unique: true })
-@Index('userId_workingReports', ['userId'], {})
 @Entity('workingReports', { schema: 'dbo' })
 export class WorkingReports implements IWorkingReportsModel {
   @PrimaryGeneratedColumn({ type: 'int', name: 'id' })

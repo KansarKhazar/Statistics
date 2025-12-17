@@ -9,15 +9,11 @@ import MDBReader from 'mdb-reader';
 
 // Internal Imports
 import { MDB_CONSTANTS } from './mdb.constant';
-import { IMdbResponse } from './mdb.ro';
 
 @Global()
 @Injectable()
 export class MdbService {
-  async readMdbFromUrl(
-    axios: AxiosInstance,
-    fileName: string
-  ): Promise<IMdbResponse[]> {
+  async readMdbFromUrl<T>(axios: AxiosInstance, fileName: string) {
     try {
       // 1. Download file to temp
       const tempFilePath = await this.downloadFileToTemp(
@@ -30,12 +26,13 @@ export class MdbService {
       const reader = new MDBReader(fileBuffer);
 
       // 3. Get table
-      const table = reader.getTable('ReportAll');
+      const tableNames = reader.getTableNames();
+      const table = reader.getTable(tableNames[0]); // Assuming first table is the target
       if (!table) {
-        throw new Error(`Table "ReportAll" not found in MDB file`);
+        throw new Error(`Table ${tableNames[0]} not found in MDB file`);
       }
 
-      const rows = table.getData() as unknown as IMdbResponse[];
+      const rows = table.getData() as T[];
 
       // 4. Clean up
       await this.cleanupTempFile(tempFilePath);

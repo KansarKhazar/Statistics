@@ -9,7 +9,7 @@ import { IUser, QUEUE } from '@kansar/common';
 // Internal Imports
 import { MadaktoService } from '../SharedModule/Madakto/Madakto.service';
 import { Users } from '../../models';
-import { chunkInsertOrIgnore } from '../../helpers';
+import { chunkInsertOrUpdate } from '../../helpers';
 
 @Injectable()
 export class ScavengerService {
@@ -17,7 +17,8 @@ export class ScavengerService {
     private readonly madaktoService: MadaktoService,
     @InjectRepository(Users)
     private usersRep: Repository<Users>,
-    @InjectQueue(QUEUE.REPORT) private queue: Queue
+    @InjectQueue(QUEUE.REPORT) private reportQueue: Queue,
+    @InjectQueue(QUEUE.DAILY_REPORT) private dailyQueue: Queue
   ) {}
 
   async getData(fromDate = '', toDate = '') {
@@ -25,21 +26,34 @@ export class ScavengerService {
 
     const users = await this.madaktoService.getAllUsers();
 
-    await this.getUsersAndInsertNewUsers(users);
+    await this.chunkInsertNewUsers(users);
 
     const startOfMonth =
       fromDate != ''
         ? fromDate
-        : Jalali.now().startOf('month').format('YYYY/MM/DD');
+        : Jalali.now().startOf('month').format('YYYY-MM-DD');
 
-    const now = toDate != '' ? toDate : Jalali.now().format('YYYY/MM/DD');
+    const now = toDate != '' ? toDate : Jalali.now().format('YYYY-MM-DD');
 
     for (const user of users) {
       // This will check if user is not active in MADAKTO
       // When User has been deactivated by Admins it means the user left the company
       if (user.PersonActive !== 1) continue;
 
-      this.queue.add(
+      this.dailyQueue.add(
+        `${now}_daily_user_${user.EmployeeId}`,
+        {
+          user,
+          startOfMonth,
+          now,
+        },
+        {
+          attempts: 1,
+          removeOnComplete: true,
+        }
+      );
+
+      this.reportQueue.add(
         `${now}_user_${user.EmployeeId}`,
         {
           user,
@@ -47,10 +61,8 @@ export class ScavengerService {
           now,
         },
         {
-          attempts: 3,
-          removeOnComplete: {
-            age: 1000 * 60 * 60 * 24 * 4, // 4 days
-          },
+          attempts: 1,
+          removeOnComplete: true,
         }
       );
     }
@@ -58,7 +70,7 @@ export class ScavengerService {
     return true;
   }
 
-  private async getUsersAndInsertNewUsers(users: IUser[]) {
+  private async chunkInsertNewUsers(users: IUser[]) {
     const entities: Users[] = [];
     for (const user of users) {
       // This will check if user is not active in MADAKTO
@@ -67,6 +79,7 @@ export class ScavengerService {
 
       entities.push(
         this.usersRep.create({
+          employeeSrl: user.EmployeeSrl,
           employeeId: user.EmployeeId,
           rfid: user.RFID,
           personName: user.PersonName,
@@ -81,6 +94,6 @@ export class ScavengerService {
       );
     }
 
-    await chunkInsertOrIgnore(this.usersRep, entities);
+    await chunkInsertOrUpdate(this.usersRep, entities, 100, ['employeeId']);
   }
 }

@@ -11,11 +11,15 @@ import { WorkingReports } from './WorkingReports';
 import { IUsersModel } from '@kansar/common';
 import { DailyReport } from './DailyReport';
 
+@Index('employeeId_users', ['employeeId'], { unique: true })
 @Index('PK_users', ['id'], { unique: true })
 @Entity('users', { schema: 'dbo' })
 export class Users implements IUsersModel {
   @PrimaryGeneratedColumn({ type: 'int', name: 'id' })
   id: number;
+
+  @Column('int', { name: 'employeeSrl' })
+  employeeSrl: number;
 
   @Column('int', { name: 'employeeId', unique: true })
   employeeId: number;

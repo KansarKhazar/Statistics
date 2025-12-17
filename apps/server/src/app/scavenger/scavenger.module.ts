@@ -7,21 +7,22 @@ import { QUEUE } from '@kansar/common';
 
 import { ScavengerService } from './scavenger.service';
 import { ScavengerController } from './scavenger.controller';
-import { ReportConsumer } from './queue/report.consumer';
-import { Users, WorkingReports } from '../../models';
+import { ReportConsumer, DailyReportConsumer } from './queue';
+import { DailyReport, Users, WorkingReports } from '../../models';
 
 @Module({
-  providers: [ScavengerService, ReportConsumer],
+  providers: [ScavengerService, ReportConsumer, DailyReportConsumer],
   controllers: [ScavengerController],
   imports: [
-    TypeOrmModule.forFeature([Users, WorkingReports]),
-    BullModule.registerQueue({
-      name: QUEUE.REPORT,
-    }),
-    BullBoardModule.forFeature({
-      name: QUEUE.REPORT,
-      adapter: BullMQAdapter,
-    }),
+    TypeOrmModule.forFeature([Users, WorkingReports, DailyReport]),
+    BullModule.registerQueue(
+      { name: QUEUE.REPORT },
+      { name: QUEUE.DAILY_REPORT }
+    ),
+    BullBoardModule.forFeature(
+      { name: QUEUE.REPORT, adapter: BullMQAdapter },
+      { name: QUEUE.DAILY_REPORT, adapter: BullMQAdapter }
+    ),
   ],
 })
 export class ScavengerModule {}

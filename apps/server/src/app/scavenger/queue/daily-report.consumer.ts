@@ -4,17 +4,17 @@ import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { QUEUE } from '@kansar/common';
 
-import { Users, WorkingReports } from '../../../models';
+import { Users, DailyReport } from '../../../models';
 import { MadaktoService } from '../../SharedModule/Madakto/Madakto.service';
 import { TReportJobData } from './report-job-data.type';
-import { MdbReportToSchemaHelper } from '../../../helpers';
+import { MdbDailyReportToSchemaHelper } from '../../../helpers';
 
-@Processor(QUEUE.REPORT, { concurrency: 1 })
-export class ReportConsumer extends WorkerHost {
+@Processor(QUEUE.DAILY_REPORT, { concurrency: 1 })
+export class DailyReportConsumer extends WorkerHost {
   constructor(
     private readonly madaktoService: MadaktoService,
-    @InjectRepository(WorkingReports)
-    private workingReportsRep: Repository<WorkingReports>,
+    @InjectRepository(DailyReport)
+    private dailyReportsRep: Repository<DailyReport>,
     @InjectRepository(Users)
     private usersRep: Repository<Users>
   ) {
@@ -38,33 +38,30 @@ export class ReportConsumer extends WorkerHost {
       return { result: 'faild' };
     }
 
-    const report = await this.madaktoService.getReportForUser(
+    const dailyReport = await this.madaktoService.getDailyReportForUser(
       String(user.EmployeeId),
       String(user.EmployeeId),
       startOfMonth,
       now
     );
 
-    const workingReportEntity = this.workingReportsRep.create({
-      ...MdbReportToSchemaHelper(report[0]),
-      userId: dbUser.id,
-      fromDate: startOfMonth,
-      toDate: now,
-      PersonFullName: user.PersonFullName,
-      createdAt: new Date(),
-      updatedAt: new Date(),
-    });
-
-    await this.workingReportsRep.upsert(workingReportEntity, [
-      'userId',
-      'fromDate',
-    ]);
+    const entities: DailyReport[] = [];
+    for (const day of dailyReport) {
+      entities.push(
+        this.dailyReportsRep.create({
+          ...MdbDailyReportToSchemaHelper(day),
+          userId: dbUser.id,
+          createdAt: new Date(),
+          updatedAt: new Date(),
+        })
+      );
+    }
+    await this.dailyReportsRep.upsert(entities, ['userId', 'FCDate']);
 
     return {
       result: 'done',
       report: {
         EmployeeId: user.EmployeeId,
-        userId: dbUser.id,
         fromDate: startOfMonth,
         toDate: now,
         PersonFullName: user.PersonFullName,

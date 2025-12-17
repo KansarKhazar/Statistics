@@ -3,7 +3,11 @@ import axios, { AxiosInstance } from 'axios';
 import { wrapper } from 'axios-cookiejar-support';
 import { CookieJar } from 'tough-cookie';
 import qs from 'qs';
-import { IUser } from '@kansar/common';
+import {
+  IDailyReportMadaktoReponse,
+  IReportMadaktoReponse,
+  IUser,
+} from '@kansar/common';
 
 // Internal Imports
 import { MADAKTO_CONSTANTS } from './Madakto.constant';
@@ -93,8 +97,8 @@ export class MadaktoService {
       ...MADAKTO_CONSTANTS.REPORT_REQUEST_DTO,
       FromId,
       ToId,
-      FromDate,
-      ToDate,
+      FromDate: FromDate.replaceAll('-', '/'),
+      ToDate: ToDate.replaceAll('-', '/'),
     });
 
     const response = await this.client.post(
@@ -108,7 +112,10 @@ export class MadaktoService {
       }
     );
 
-    return await this.mdbService.readMdbFromUrl(this.client, response.data.d);
+    return await this.mdbService.readMdbFromUrl<IReportMadaktoReponse>(
+      this.client,
+      response.data.d
+    );
   }
 
   async getDailyReportForUser(
@@ -121,8 +128,8 @@ export class MadaktoService {
       ...MADAKTO_CONSTANTS.REPORT_DAILY_REQUEST_DTO,
       FromId,
       ToId,
-      FromDate,
-      ToDate,
+      FromDate: FromDate.replaceAll('-', '/'),
+      ToDate: ToDate.replaceAll('-', '/'),
     });
 
     const response = await this.client.post(
@@ -135,6 +142,9 @@ export class MadaktoService {
         },
       }
     );
-    return await this.mdbService.readMdbFromUrl(this.client, response.data.d);
+    return await this.mdbService.readMdbFromUrl<IDailyReportMadaktoReponse>(
+      this.client,
+      response.data.d
+    );
   }
 }

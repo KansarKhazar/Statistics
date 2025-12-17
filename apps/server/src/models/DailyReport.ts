@@ -7,10 +7,12 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { Users } from './Users';
+import { IDailyReport } from '@kansar/common';
 
+@Index('IX_dailyReport_userId_FCDate', ['userId', 'FCDate'], { unique: true })
 @Index('PK_dailyReport', ['id'], { unique: true })
 @Entity('dailyReport', { schema: 'dbo' })
-export class DailyReport {
+export class DailyReport implements IDailyReport {
   @PrimaryGeneratedColumn({ type: 'int', name: 'id' })
   id: number;
 
@@ -30,40 +32,40 @@ export class DailyReport {
   FCDate: string;
 
   @Column('time', { name: 'FCEnterTime1' })
-  FCEnterTime1: Date;
+  FCEnterTime1: string;
 
   @Column('time', { name: 'FCExitTime1' })
-  FCExitTime1: Date;
+  FCExitTime1: string;
 
   @Column('time', { name: 'FCEnterTime2' })
-  FCEnterTime2: Date;
+  FCEnterTime2: string;
 
   @Column('time', { name: 'FCExitTime2' })
-  FCExitTime2: Date;
+  FCExitTime2: string;
 
   @Column('time', { name: 'FCEnterTime3' })
-  FCEnterTime3: Date;
+  FCEnterTime3: string;
 
   @Column('time', { name: 'FCExitTime3' })
-  FCExitTime3: Date;
+  FCExitTime3: string;
 
   @Column('time', { name: 'FCEnterTime4' })
-  FCEnterTime4: Date;
+  FCEnterTime4: string;
 
   @Column('time', { name: 'FCExitTime4' })
-  FCExitTime4: Date;
+  FCExitTime4: string;
 
   @Column('time', { name: 'FCEnterTime5' })
-  FCEnterTime5: Date;
+  FCEnterTime5: string;
 
   @Column('time', { name: 'FCExitTime5' })
-  FCExitTime5: Date;
+  FCExitTime5: string;
 
   @Column('time', { name: 'FCEnterTime6' })
-  FCEnterTime6: Date;
+  FCEnterTime6: string;
 
   @Column('time', { name: 'FCExitTime6' })
-  FCExitTime6: Date;
+  FCExitTime6: string;
 
   @Column('int', { name: 'FCHourlyMeritVacation' })
   FCHourlyMeritVacation: number;
@@ -120,7 +122,7 @@ export class DailyReport {
   FCDailyValidAbsence: number;
 
   @Column('bit', { name: 'FCIsRamadan' })
-  FCIsRamadan: boolean;
+  FCIsRamadan: number;
 
   @Column('int', { name: 'FCValidDelayFirstTime' })
   FCValidDelayFirstTime: number;

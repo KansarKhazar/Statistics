@@ -9,7 +9,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ScavengerModule } from './Scavenger/scavenger.module';
 import { SharedModule } from './SharedModule/shared.module';
-import { Users, WorkingReports } from '../models';
+import { DailyReport, Users, WorkingReports } from '../models';
 import { env } from '../environment';
 
 @Module({
@@ -21,7 +21,7 @@ import { env } from '../environment';
       username: env.DB_USERNAME,
       password: env.DB_PASSWORD,
       database: env.DB_DATABASE,
-      entities: [Users, WorkingReports],
+      entities: [Users, WorkingReports, DailyReport],
       synchronize: false,
       options: {
         trustServerCertificate: true,
