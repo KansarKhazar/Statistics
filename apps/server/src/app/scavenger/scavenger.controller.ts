@@ -8,7 +8,7 @@ import { BASE_SAVINGS_PATH, CALC_PEOPLE_PATH } from './scavenger.constats';
  * ScavengerController
  *
  * @class
- * @description Handles HTTP routes under "/scavenger" for calculating people counts.
+ *  Handles HTTP routes under "/scavenger" for calculating people counts.
  */
 @Controller(BASE_SAVINGS_PATH)
 export class ScavengerController {

@@ -1,6 +1,6 @@
 /**
  * @interface IUsersModel
- * @description Represents a user record with personal, organizational, and audit information.
+ *  Represents a user record with personal, organizational, and audit information.
  *
  * @property {number} id - Unique identifier for the user record.
  * @property {number} employeeSrl - Serial number assigned to the employee.

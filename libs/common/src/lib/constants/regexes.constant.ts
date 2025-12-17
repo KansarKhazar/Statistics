@@ -12,7 +12,7 @@
  *   - 10–29 ([12]\d)
  *   - 30–31 (3[01])
  *
- * @constant {RegExp} PERSIAN_DATE_REGEX
+ * @label {RegExp} PERSIAN_DATE_REGEX
  */
 export const PERSIAN_DATE_REGEX =
   /^(1[34]\d{2}|[2-9]\d{3})-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/;

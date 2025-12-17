@@ -1,5 +1,5 @@
 /**
- * @file index.ts
+ * @label index.ts
  * @module IndexExports
  * @description
  * Re-exports all data transfer objects (DTOs) from the scavenger.dto module.

@@ -1,7 +1,7 @@
 /**
- * @file index.ts
+ * @label index.ts
  * @module EntryPoint
- * @description
+ *
  * Main entry point for the Madakto library. Re-exports the public API components:
  * - Enums
  * - Models

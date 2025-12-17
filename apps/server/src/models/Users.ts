@@ -14,7 +14,7 @@ import { DailyReport } from './DailyReport';
 /**
  * @class Users
  * @implements {IUsersModel}
- * @description
+ *
  *   Represents a user record in the 'users' table. Each user has
  *   personal identifiers, organizational data, and relations to
  *   DailyReport and WorkingReports entities.

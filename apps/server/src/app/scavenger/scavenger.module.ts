@@ -1,6 +1,6 @@
 /**
- * @file scavenger.module.ts
- * @description Defines the ScavengerModule which configures the scavenger feature,
+ * @label scavenger.module.ts
+ *  Defines the ScavengerModule which configures the scavenger feature,
  *              including services, controllers, queue consumers, TypeORM entities,
  *              and BullMQ queue integration with Bull Board UI.
  */
@@ -18,7 +18,7 @@ import { DailyReport, Users, WorkingReports } from '../../models';
 
 /**
  * @class ScavengerModule
- * @description NestJS module that encapsulates the scavenger functionality.
+ *  NestJS module that encapsulates the scavenger functionality.
  *              It wires up the service, controller, database entities,
  *              background queue consumers, and monitoring UI.
  * @export

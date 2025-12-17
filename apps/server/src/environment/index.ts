@@ -8,7 +8,7 @@ import { production } from './env.production';
  * NODE_ENV environment variable. If it equals 'development',
  * the development config is used; otherwise, the production config.
  *
- * @constant {typeof development | typeof production} env
+ * @label {typeof development | typeof production} env
  */
 export const env =
   process.env.NODE_ENV === 'development' ? development : production;

@@ -1,6 +1,6 @@
 /**
- * @file env.development.ts
- * @description Development environment configuration for the application.
+ * @label env.development.ts
+ *  Development environment configuration for the application.
  */
 
 import { IEnvironment } from './environment.interface';
@@ -8,7 +8,7 @@ import { IEnvironment } from './environment.interface';
 /**
  * Development environment settings.
  *
- * @constant {IEnvironment} development - The development environment variables.
+ * @label {IEnvironment} development - The development environment variables.
  * @property {string} MADAKTO_AUTH_USERNAME      - Username for Madakto authentication.
  * @property {string} MADAKTO_AUTH_PASSWORD      - Password for Madakto authentication.
  * @property {string} DB_TYPE                    - Type of the database (e.g., 'mssql').

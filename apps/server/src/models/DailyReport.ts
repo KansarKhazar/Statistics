@@ -14,7 +14,7 @@ import { IDailyReportModel } from '@kansar/common';
  *
  * @class DailyReport
  * @implements {IDailyReport}
- * @description
+ *
  *   Maps to the 'dailyReport' table in the 'dbo' schema, holding clock-in/out times,
  *   vacation, mission and overtime summaries per day for a particular user.
  */

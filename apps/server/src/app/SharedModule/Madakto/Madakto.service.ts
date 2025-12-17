@@ -17,7 +17,7 @@ const typedWrapper = wrapper as <T = AxiosInstance>(axiosInstance: T) => T;
 
 /**
  * @class MadaktoService
- * @description
+ *
  *   Global service to interact with the Madakto system:
  *   - Manages authentication cookies
  *   - Performs login
@@ -46,7 +46,7 @@ export class MadaktoService {
   /**
    * @private
    * @method createCookie
-   * @description
+   *
    *   Initializes a new cookie jar and axios client instance.
    *   Disables SSL verification for outgoing HTTP requests.
    */
@@ -69,7 +69,7 @@ export class MadaktoService {
 
   /**
    * @method login
-   * @description
+   *
    *   Performs the login sequence against the Madakto API,
    *   creating and storing authentication cookies.
    * @returns Promise<boolean> - true if login succeeds, false otherwise
@@ -95,7 +95,7 @@ export class MadaktoService {
 
   /**
    * @method getAllUsers
-   * @description
+   *
    *   Retrieves a list of all users from Madakto.
    * @param maxRecord - Maximum number of user records to fetch (default: 10000)
    * @returns Promise<IUser[]> - Array of user objects
@@ -122,7 +122,7 @@ export class MadaktoService {
 
   /**
    * @method getReportForUser
-   * @description
+   *
    *   Fetches a detailed report for a specified user over a date range.
    * @param FromId - Identifier of the report issuer
    * @param ToId - Identifier of the report recipient
@@ -163,7 +163,7 @@ export class MadaktoService {
 
   /**
    * @method getDailyReportForUser
-   * @description
+   *
    *   Fetches a daily aggregated report for a specified user over a date range.
    * @param FromId - Identifier of the report issuer
    * @param ToId - Identifier of the report recipient

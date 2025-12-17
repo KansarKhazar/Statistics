@@ -1,6 +1,6 @@
 /**
- * @file env.production.ts
- * @description Production environment configuration for the application.
+ * @label env.production.ts
+ *  Production environment configuration for the application.
  */
 
 import { IEnvironment } from './environment.interface';
@@ -8,7 +8,7 @@ import { IEnvironment } from './environment.interface';
 /**
  * Production environment settings.
  *
- * @constant {IEnvironment} production - The production environment variables.
+ * @label {IEnvironment} production - The production environment variables.
  * @property {string} MADAKTO_AUTH_USERNAME      - Username for Madakto authentication.
  * @property {string} MADAKTO_AUTH_PASSWORD      - Password for Madakto authentication.
  * @property {string} DB_TYPE                    - Type of the database (e.g., 'mssql').
