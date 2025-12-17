@@ -1,7 +1,7 @@
 {
   "extends": "./tsconfig.base.json",
   "compileOnSave": false,
-  "files": [],
+  "files": ["./libs/**/*"],
   "references": [
     {
       "path": "./apps/server-e2e"
