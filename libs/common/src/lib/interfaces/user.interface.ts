@@ -1,3 +1,8 @@
+/**
+ * Represents a user record with personal, employment, and organization-related details.
+ *
+ * @interface IUser
+ */
 export interface IUser {
   __type: string;
   RowIndex: number;

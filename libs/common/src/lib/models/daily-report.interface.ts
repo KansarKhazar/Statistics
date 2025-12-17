@@ -1,4 +1,11 @@
-export interface IDailyReport {
+/**
+ * Represents a daily attendance report Model for an employee.
+ * Contains time entries, vacation and mission details,
+ * overtime calculations, absence metrics, and shift information.
+ *
+ * @interface IDailyReportModel
+ */
+export interface IDailyReportModel {
   id: number;
   userId: number;
   EmployeeId: number;

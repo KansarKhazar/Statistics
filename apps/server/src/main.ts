@@ -3,6 +3,15 @@ import { NestFactory } from '@nestjs/core';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { AppModule } from './app/app.module';
 
+/**
+ * Bootstraps the NestJS application by creating the app instance,
+ * setting a global API prefix, configuring Swagger documentation,
+ * and starting the HTTP server.
+ *
+ * @async
+ * @function bootstrap
+ * @returns {Promise<void>} Resolves once the server is listening on the configured port.
+ */
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   const globalPrefix = 'api';

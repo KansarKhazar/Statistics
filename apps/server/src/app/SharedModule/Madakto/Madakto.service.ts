@@ -15,12 +15,24 @@ import { MdbService } from '../mdb/mdb.service';
 
 const typedWrapper = wrapper as <T = AxiosInstance>(axiosInstance: T) => T;
 
+/**
+ * @class MadaktoService
+ * @description
+ *   Global service to interact with the Madakto system:
+ *   - Manages authentication cookies
+ *   - Performs login
+ *   - Fetches users and reports
+ */
 @Global()
 @Injectable()
 export class MadaktoService {
   private jar: CookieJar;
   private client: AxiosInstance;
 
+  /**
+   * @constructor
+   * @param mdbService - Service responsible for reading MDB data from a URL
+   */
   constructor(private readonly mdbService: MdbService) {
     this.jar = new CookieJar();
     this.client = typedWrapper(
@@ -31,6 +43,13 @@ export class MadaktoService {
     );
   }
 
+  /**
+   * @private
+   * @method createCookie
+   * @description
+   *   Initializes a new cookie jar and axios client instance.
+   *   Disables SSL verification for outgoing HTTP requests.
+   */
   private async createCookie() {
     // Create a cookie jar
     this.jar = new CookieJar();
@@ -48,6 +67,13 @@ export class MadaktoService {
     );
   }
 
+  /**
+   * @method login
+   * @description
+   *   Performs the login sequence against the Madakto API,
+   *   creating and storing authentication cookies.
+   * @returns Promise<boolean> - true if login succeeds, false otherwise
+   */
   async login() {
     try {
       await this.createCookie();
@@ -67,6 +93,13 @@ export class MadaktoService {
     }
   }
 
+  /**
+   * @method getAllUsers
+   * @description
+   *   Retrieves a list of all users from Madakto.
+   * @param maxRecord - Maximum number of user records to fetch (default: 10000)
+   * @returns Promise<IUser[]> - Array of user objects
+   */
   async getAllUsers(maxRecord = 10000): Promise<IUser[]> {
     const postUserData = JSON.stringify({
       ...MADAKTO_CONSTANTS.USERS_REQUEST_DTO,
@@ -87,6 +120,16 @@ export class MadaktoService {
     return users.data.d;
   }
 
+  /**
+   * @method getReportForUser
+   * @description
+   *   Fetches a detailed report for a specified user over a date range.
+   * @param FromId - Identifier of the report issuer
+   * @param ToId - Identifier of the report recipient
+   * @param FromDate - Start date of the report period (format: YYYY-MM-DD)
+   * @param ToDate - End date of the report period (format: YYYY-MM-DD)
+   * @returns Promise<IReportMadaktoReponse> - Parsed report response
+   */
   async getReportForUser(
     FromId: string,
     ToId: string,
@@ -118,6 +161,16 @@ export class MadaktoService {
     );
   }
 
+  /**
+   * @method getDailyReportForUser
+   * @description
+   *   Fetches a daily aggregated report for a specified user over a date range.
+   * @param FromId - Identifier of the report issuer
+   * @param ToId - Identifier of the report recipient
+   * @param FromDate - Start date for the daily report (format: YYYY-MM-DD)
+   * @param ToDate - End date for the daily report (format: YYYY-MM-DD)
+   * @returns Promise<IDailyReportMadaktoReponse> - Parsed daily report response
+   */
   async getDailyReportForUser(
     FromId: string,
     ToId: string,

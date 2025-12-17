@@ -1,3 +1,12 @@
+/**
+ * IDailyReportMadaktoReponse
+ *
+ * Represents the structure of a Madakto Daily report response for an individual,
+ * including all calculated fields for attendance, vacations, missions,
+ * absences, delays, early exits, overtime, shift functions, and remaining vacations.
+ *
+ * @interface IDailyReportMadaktoReponse
+ */
 export interface IDailyReportMadaktoReponse {
   EmployeeId: string;
   FCDayName: string;

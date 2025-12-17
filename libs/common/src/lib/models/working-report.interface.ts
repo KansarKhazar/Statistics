@@ -1,3 +1,10 @@
+/**
+ * Represents a monthly attendance report Model for an employee.
+ * Contains time entries, vacation and mission details,
+ * overtime calculations, absence metrics, and shift information.
+ *
+ * @interface IWorkingReportsModel
+ */
 export interface IWorkingReportsModel {
   id: number;
   userId: number;

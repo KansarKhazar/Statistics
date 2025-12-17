@@ -10,9 +10,26 @@ import MDBReader from 'mdb-reader';
 // Internal Imports
 import { MDB_CONSTANTS } from './mdb.constant';
 
+/**
+ * @global
+ * @@Injectable
+ *
+ * Service for downloading and reading Microsoft Access (.mdb) files from a remote URL.
+ * Uses a temporary file system location to store the downloaded file, parses it using
+ * the mdb-reader library, and cleans up after reading.
+ */
 @Global()
 @Injectable()
 export class MdbService {
+  /**
+   * Downloads an MDB file from the given URL, reads its first table, and returns the data rows.
+   *
+   * @template T  The expected shape of each row in the MDB table.
+   * @param {AxiosInstance} axios  An instance of Axios for performing HTTP requests.
+   * @param {string} fileName      The name of the file to download (appended to the base URL).
+   * @throws {Error}               If downloading, parsing, or cleanup fails.
+   * @returns {Promise<T[]>}       A promise that resolves with the array of rows from the first table.
+   */
   async readMdbFromUrl<T>(axios: AxiosInstance, fileName: string) {
     try {
       // 1. Download file to temp
@@ -44,6 +61,13 @@ export class MdbService {
     }
   }
 
+  /**
+   * Downloads a file from the specified URL and saves it to the operating system's temp directory.
+   *
+   * @param {AxiosInstance} axios  An instance of Axios for performing the download.
+   * @param {string} url           The full URL to download the .mdb file from.
+   * @returns {Promise<string>}    A promise that resolves with the path to the saved temporary file.
+   */
   private async downloadFileToTemp(
     axios: AxiosInstance,
     url: string
@@ -59,6 +83,12 @@ export class MdbService {
     return tempFilePath;
   }
 
+  /**
+   * Deletes the temporary file at the given path if it exists.
+   *
+   * @param {string} filePath  The path to the temporary file to remove.
+   * @returns {Promise<void>}  A promise that resolves once cleanup is complete.
+   */
   private async cleanupTempFile(filePath: string): Promise<void> {
     try {
       if (await this.exists(filePath)) {
@@ -69,6 +99,12 @@ export class MdbService {
     }
   }
 
+  /**
+   * Checks whether a file exists at the specified path.
+   *
+   * @param {string} path  The filesystem path to check.
+   * @returns {Promise<boolean>}  A promise that resolves to true if the file exists, false otherwise.
+   */
   private async exists(path: string): Promise<boolean> {
     try {
       await fs.access(path, constants.F_OK);

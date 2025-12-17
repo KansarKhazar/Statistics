@@ -1,8 +1,27 @@
 import { env } from '../../../environment';
 
+/**
+ * A collection of MADAKTO-related constants, including endpoint URLs and
+ * default DTO payloads for various API operations (login, user fetching,
+ * full reports, and daily reports).
+ *
+ * @namespace MADAKTO_CONSTANTS
+ */
 export const MADAKTO_CONSTANTS = {
-  // Constants for Login Request
+  /**
+   * URL to send the login request to the MADAKTO system.
+   *
+   * @type {string}
+   */
   LOGIN_REQUEST_URL: 'https://10.139.1.46/Madakto/Login',
+
+  /**
+   * Default data transfer object for the login request.
+   * Includes hidden form state fields and credential placeholders that
+   * are populated from environment variables.
+   *
+   * @type {object}
+   */
   LOGIN_REQUEST_DTO: {
     __VIEWSTATE:
       '/wEPDwUJNDIyMDg0NzgwD2QWAmYPZBYCAgEPZBYCAgEPZBYKZg8QZBAVASbaqdin2LHYqNixINiz2KfZhdin2YbZhyDZhdin2K/Yp9qp2KrZiBUBATAUKwMBZ2RkAgMPFgIeB1Zpc2libGVoZAIEDxYCHwBoZAIFDxYCHwBoZAIHDw9kFgIeBXN0eWxlBQ9jdXJzb3I6cG9pbnRlcjtkGAEFHl9fQ29udHJvbHNSZXF1aXJlUG9zdEJhY2tLZXlfXxYBBSRjdGwwMCRDb250ZW50UGxhY2VIb2xkZXIxJFJlbWVtYmVyTWWBViWlR6XY+2b5qq+EkQi9fm7KCoRA8oQ08cF/1vs95w==',
@@ -15,9 +34,20 @@ export const MADAKTO_CONSTANTS = {
       '/wEdAAXaKMI2zr1qF6kDy+oyxANquaZaNTD5QwewdJqajpmO1IiVidHTGamuEinfWG21MPl447MIsoZvoOiqHcKGwv3zsEuMZ1vGSFQdOl+6KbBw5DuqpSYb9bjm7bfdoSrkJ8bWO4jVRB4e1t404lsmcHeP',
   },
 
-  // Constants for Users List Fetching
+  /**
+   * URL to fetch the list of users (employees) from MADAKTO.
+   *
+   * @type {string}
+   */
   USERS_REQUEST_URL:
     'https://10.139.1.46/Madakto/Facade/Personnel/EmployeesService.asmx/getEmployeesWithSearchService',
+
+  /**
+   * Default data transfer object for requesting the users list.
+   * Provides pagination, ordering, and filter fields.
+   *
+   * @type {object}
+   */
   USERS_REQUEST_DTO: {
     startRecord: 0,
     maxRecord: 10000,
@@ -39,9 +69,20 @@ export const MADAKTO_CONSTANTS = {
     PersonActive: 0,
   },
 
-  // Constants for Full Report for User
+  /**
+   * URL to generate and retrieve a full access report file for a user.
+   *
+   * @type {string}
+   */
   REPORT_REQUEST_URL:
     'https://10.139.1.46/Madakto/Facade/Reports/Attendance/ReportAllOptionService.asmx/GetAccessReportFileService',
+
+  /**
+   * Default data transfer object for requesting the full user report.
+   * Contains selection filters, output format flags, and report column settings.
+   *
+   * @type {object}
+   */
   REPORT_REQUEST_DTO: {
     SelectedOrganizationUnitsSrls: '',
     EmploymentType: '0',
@@ -69,9 +110,20 @@ export const MADAKTO_CONSTANTS = {
     SelectedDatesList: '',
   },
 
-  // Constants for Daily Report for User
+  /**
+   * URL to generate and retrieve a daily access report file for a user.
+   *
+   * @type {string}
+   */
   REPORT_DAILY_REQUEST_URL:
     'https://10.139.1.46/Madakto/Facade/Reports/Attendance/ReportOptionService.asmx/GetAccessReportFileService',
+
+  /**
+   * Default data transfer object for requesting the daily user report.
+   * Similar to the full report DTO but with a reduced set of columns.
+   *
+   * @type {object}
+   */
   REPORT_DAILY_REQUEST_DTO: {
     SelectedOrganizationUnitsSrls: '',
     EmploymentType: '0',

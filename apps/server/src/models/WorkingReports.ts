@@ -12,6 +12,17 @@ import { IWorkingReportsModel } from '@kansar/common';
 
 import { Users } from './Users';
 
+/**
+ * Represents a working report record for a user over a specific date range.
+ *
+ * @class WorkingReports
+ * @implements IWorkingReportsModel
+ * @entity workingReports
+ * @schema dbo
+ * @uniqueConstraints
+ *   - IX_workingReports_userId_fromDate: ['userId', 'fromDate']
+ *   - PK_workingReports: ['id']
+ */
 @Index('IX_workingReports_userId_fromDate', ['userId', 'fromDate'], {
   unique: true,
 })

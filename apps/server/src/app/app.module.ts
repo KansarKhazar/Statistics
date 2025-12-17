@@ -12,6 +12,18 @@ import { SharedModule } from './SharedModule/shared.module';
 import { DailyReport, Users, WorkingReports } from '../models';
 import { env } from '../environment';
 
+/**
+ * Root application module.
+ *
+ * This module bootstraps and configures:
+ * - TypeORM database connection based on environment variables.
+ * - BullMQ for job queueing.
+ * - Bull Board dashboard for queue monitoring.
+ * - Feature modules: ScavengerModule and SharedModule.
+ *
+ * @export
+ * @class AppModule
+ */
 @Module({
   imports: [
     TypeOrmModule.forRoot({

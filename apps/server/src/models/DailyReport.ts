@@ -7,12 +7,21 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { Users } from './Users';
-import { IDailyReport } from '@kansar/common';
+import { IDailyReportModel } from '@kansar/common';
 
+/**
+ * Represents a daily attendance report record.
+ *
+ * @class DailyReport
+ * @implements {IDailyReport}
+ * @description
+ *   Maps to the 'dailyReport' table in the 'dbo' schema, holding clock-in/out times,
+ *   vacation, mission and overtime summaries per day for a particular user.
+ */
 @Index('IX_dailyReport_userId_FCDate', ['userId', 'FCDate'], { unique: true })
 @Index('PK_dailyReport', ['id'], { unique: true })
 @Entity('dailyReport', { schema: 'dbo' })
-export class DailyReport implements IDailyReport {
+export class DailyReport implements IDailyReportModel {
   @PrimaryGeneratedColumn({ type: 'int', name: 'id' })
   id: number;
 

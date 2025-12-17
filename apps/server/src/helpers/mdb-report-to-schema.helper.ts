@@ -2,11 +2,36 @@ import { IReportMadaktoReponse } from '@kansar/common';
 import { WorkingReports } from '../models';
 import { normalizeDuration } from './normalize-duration.helper';
 
+/**
+ * TMdbReportToSchema
+ *
+ * Type representing the subset of WorkingReports fields that are populated
+ * from an MDB report response. Omits database-managed and relational fields:
+ * - id
+ * - userId
+ * - fromDate
+ * - toDate
+ * - createdAt
+ * - updatedAt
+ * - user
+ *
+ * @typedef {Omit<WorkingReports, 'id' | 'userId' | 'fromDate' | 'toDate' | 'createdAt' | 'updatedAt' | 'user'>} TMdbReportToSchema
+ */
 export type TMdbReportToSchema = Omit<
   WorkingReports,
   'id' | 'userId' | 'fromDate' | 'toDate' | 'createdAt' | 'updatedAt' | 'user'
 >;
 
+/**
+ * MdbReportToSchemaHelper
+ *
+ * Maps an MDB API report object to the internal WorkingReports schema type,
+ * transforming and normalizing string-based counts and durations into
+ * numeric and normalized duration formats.
+ *
+ * @param {IReportMadaktoReponse} report - The raw report data from MDB.
+ * @returns {TMdbReportToSchema} The mapped schema object ready for persistence.
+ */
 export const MdbReportToSchemaHelper = (
   report: IReportMadaktoReponse
 ): TMdbReportToSchema => {

@@ -1,3 +1,12 @@
+/**
+ * IReportMadaktoReponse
+ *
+ * Represents the structure of a Madakto Monthly report response for an individual,
+ * including all calculated fields for attendance, vacations, missions,
+ * absences, delays, early exits, overtime, shift functions, and remaining vacations.
+ *
+ * @interface IReportMadaktoReponse
+ */
 export interface IReportMadaktoReponse {
   AttendanceCardNo: string;
   PersonFullName: string;
