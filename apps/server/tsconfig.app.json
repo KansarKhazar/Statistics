@@ -11,8 +11,10 @@
   },
   "include": [
     "src/**/*.ts",
+    "../../libs/**/*",
     "../../libs/common/src/lib/interfaces/user.interface.ts",
-    "../../libs/common/src/lib/interfaces/index.ts"
+    "../../libs/common/src/lib/interfaces/index.ts",
+    "../../libs/common/src/lib/Madakto/report.ro.ts"
   ],
   "exclude": ["eslint.config.js", "eslint.config.cjs", "eslint.config.mjs"],
   "references": [
