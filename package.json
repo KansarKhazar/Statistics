@@ -2,16 +2,36 @@
   "name": "@statistics/source",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "server:dev": "npx nx run @statistics/server:serve",
+    "server:generate:entites": "typeorm-model-generator --convertCaseEntity none --convertCaseFile none --convertCaseProperty none -h localhost -d warehouse -u sa -x root -p 1433 -e mssql -o ./apps/server/src/gen --noConfig --noPluralization"
+  },
   "private": true,
   "dependencies": {
+    "@bull-board/api": "^6.14.2",
+    "@bull-board/express": "^6.14.2",
+    "@bull-board/nestjs": "^6.14.2",
+    "@nestjs/bullmq": "^11.0.4",
     "@nestjs/common": "^11.0.0",
     "@nestjs/core": "^11.0.0",
     "@nestjs/platform-express": "^11.0.0",
     "@nestjs/swagger": "^11.2.3",
+    "@nestjs/typeorm": "^11.0.0",
     "axios": "^1.13.2",
+    "axios-cookiejar-support": "^6.0.5",
+    "bullmq": "^5.66.0",
+    "class-transformer": "^0.5.1",
+    "class-validator": "^0.14.3",
+    "jalali-ts": "^8.0.0",
+    "mdb-reader": "^3.1.0",
+    "mssql": "^11.0.1",
+    "mysql2": "^3.15.3",
+    "pg": "^8.16.3",
+    "qs": "^6.14.0",
     "reflect-metadata": "^0.1.13",
-    "rxjs": "^7.8.0"
+    "rxjs": "^7.8.0",
+    "tough-cookie": "^6.0.0",
+    "typeorm": "^0.3.27"
   },
   "devDependencies": {
     "@eslint/js": "^9.8.0",
@@ -32,14 +52,30 @@
     "@types/node": "20.19.9",
     "eslint": "^9.8.0",
     "eslint-config-prettier": "^10.0.0",
+    "jsonc-eslint-parser": "^2.1.0",
     "nx": "22.1.2",
     "prettier": "^2.6.2",
     "tslib": "^2.3.0",
     "typescript": "~5.9.2",
     "typescript-eslint": "^8.40.0",
+    "verdaccio": "^6.0.5",
     "webpack-cli": "^5.1.4"
   },
   "workspaces": [
-    "apps/*"
-  ]
+    "apps/*",
+    "libs/*"
+  ],
+  "nx": {
+    "includedScripts": [],
+    "targets": {
+      "local-registry": {
+        "executor": "@nx/js:verdaccio",
+        "options": {
+          "port": 4873,
+          "config": ".verdaccio/config.yml",
+          "storage": "tmp/local-registry/storage"
+        }
+      }
+    }
+  }
 }
