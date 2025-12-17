@@ -1,3 +1,4 @@
 export enum QUEUE {
-  REPORT = 'Report',
+  REPORT = 'REPORT',
+  DAILY_REPORT = 'DAILY_REPORT',
 }

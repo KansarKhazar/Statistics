@@ -1,5 +1,6 @@
 export interface IUsersModel {
   id: number;
+  employeeSrl: number;
   employeeId: number;
   rfid: string | null;
   personName: string;
