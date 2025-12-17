@@ -4,7 +4,9 @@
   "license": "MIT",
   "scripts": {
     "server:dev": "npx nx run @statistics/server:serve",
-    "server:generate:entites": "typeorm-model-generator --convertCaseEntity none --convertCaseFile none --convertCaseProperty none -h localhost -d warehouse -u sa -x root -p 1433 -e mssql -o ./apps/server/src/gen --noConfig --noPluralization"
+    "server:generate:entites": "typeorm-model-generator --convertCaseEntity none --convertCaseFile none --convertCaseProperty none -h localhost -d warehouse -u sa -x root -p 1433 -e mssql -o ./apps/server/src/gen --noConfig --noPluralization",
+    "docs:server": "npx typedoc --tsconfig apps/server/tsconfig.app.json --entryPoints apps/server/src --entryPointStrategy expand --out apps/server/docs",
+    "docs:common": "npx typedoc --tsconfig libs/common/tsconfig.lib.json --entryPoints libs/common/src --entryPointStrategy expand --out libs/common/docs"
   },
   "private": true,
   "dependencies": {
