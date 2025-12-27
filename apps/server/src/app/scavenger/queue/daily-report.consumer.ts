@@ -6,7 +6,10 @@ import { QUEUE } from '@kansar/common';
 import { Users, DailyReport } from '../../../models';
 import { MadaktoService } from '../../SharedModule/Madakto/Madakto.service';
 import { TReportJobData } from './report-job-data.type';
-import { MdbDailyReportToSchemaHelper } from '../../../helpers';
+import {
+  chunkInsertOrUpdate,
+  MdbDailyReportToSchemaHelper,
+} from '../../../helpers';
 
 /**
  * Consumer that handles processing of daily report jobs from the queue.
@@ -78,7 +81,10 @@ export class DailyReportConsumer extends WorkerHost {
       );
     }
 
-    await this.dailyReportsRep.upsert(entities, ['userId', 'FCDate']);
+    await chunkInsertOrUpdate(this.dailyReportsRep, entities, 15, [
+      'userId',
+      'FCDate',
+    ]);
 
     return {
       result: 'done',

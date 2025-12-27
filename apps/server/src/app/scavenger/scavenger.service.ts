@@ -48,10 +48,16 @@ export class ScavengerService {
 
     await this.chunkInsertNewUsers(users);
 
+    const jalaliNow = Jalali.now();
     const startOfMonth =
       fromDate !== ''
         ? fromDate
-        : Jalali.now().startOf('month').format('YYYY-MM-DD');
+        : jalaliNow.getDate() < 26
+        ? jalaliNow
+            .setMonth(jalaliNow.getMonth() - 1)
+            .setDate(26)
+            .format('YYYY-MM-DD')
+        : jalaliNow.setDate(26).format('YYYY-MM-DD');
     const now = toDate !== '' ? toDate : Jalali.now().format('YYYY-MM-DD');
 
     for (const user of users) {
