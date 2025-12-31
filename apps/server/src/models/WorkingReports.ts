@@ -35,11 +35,11 @@ export class WorkingReports implements IWorkingReportsModel {
   @Column('int', { name: 'userId' })
   userId: number;
 
-  @Column('nvarchar', { name: 'fromDate' })
-  fromDate: string;
+  @Column('int', { name: 'fromDate' })
+  fromDate: number;
 
-  @Column('nvarchar', { name: 'toDate' })
-  toDate: string;
+  @Column('int', { name: 'toDate' })
+  toDate: number;
 
   @Column('int', { name: 'AttendanceCardNo' })
   AttendanceCardNo: number;

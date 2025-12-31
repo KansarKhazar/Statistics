@@ -8,8 +8,8 @@
 export interface IWorkingReportsModel {
   id: number;
   userId: number;
-  fromDate: string;
-  toDate: string;
+  fromDate: number;
+  toDate: number;
   AttendanceCardNo: number;
   PersonFullName: string;
   FCDailyMeritVacation: number;

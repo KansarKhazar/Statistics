@@ -98,7 +98,7 @@ export const MdbDailyReportToSchemaHelper = (
     EmployeeId: parseInt(report.EmployeeId),
     FCDayName: report.FCDayName,
     EmployeeFullName: report.EmployeeFullName,
-    FCDate: report.FCDate.replaceAll('/', '-'),
+    FCDate: parseInt(report.FCDate.replaceAll('/', '').replaceAll('-', '')),
     FCEnterTime1: normalizeTime(report.FCEnterTime1),
     FCExitTime1: normalizeTime(report.FCExitTime1),
     FCEnterTime2: normalizeTime(report.FCEnterTime2),

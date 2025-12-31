@@ -67,8 +67,8 @@ export class ReportConsumer extends WorkerHost {
     const workingReportEntity = this.workingReportsRep.create({
       ...MdbReportToSchemaHelper(report[0]),
       userId: dbUser.id,
-      fromDate: startOfMonth,
-      toDate: now,
+      fromDate: parseInt(startOfMonth.replaceAll('/', '').replaceAll('-', '')),
+      toDate: parseInt(now.replaceAll('/', '').replaceAll('-', '')),
       PersonFullName: user.PersonFullName,
       createdAt: new Date(),
       updatedAt: new Date(),

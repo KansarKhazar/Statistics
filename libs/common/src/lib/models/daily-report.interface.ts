@@ -11,7 +11,7 @@ export interface IDailyReportModel {
   EmployeeId: number;
   FCDayName: string;
   EmployeeFullName: string;
-  FCDate: string;
+  FCDate: number;
   FCEnterTime1: string;
   FCExitTime1: string;
   FCEnterTime2: string;

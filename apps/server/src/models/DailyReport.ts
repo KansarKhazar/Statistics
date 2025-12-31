@@ -37,8 +37,8 @@ export class DailyReport implements IDailyReportModel {
   @Column('nvarchar', { name: 'EmployeeFullName', length: 256 })
   EmployeeFullName: string;
 
-  @Column('nvarchar', { name: 'FCDate', length: 10 })
-  FCDate: string;
+  @Column('int', { name: 'FCDate' })
+  FCDate: number;
 
   @Column('time', { name: 'FCEnterTime1' })
   FCEnterTime1: string;
